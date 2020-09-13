@@ -1,0 +1,506 @@
+<head>
+    <title>Command Line Notes - Jim Ngo</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="subject" content="">
+    <meta name="language" content="English">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Jim Ngo" />
+    <meta name="copyright" content="2020" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="all.min.css">
+</head>
+
+<body>
+    <div class="main">
+        <h1>Command Line Notes & Examples - Jim Ngo</h1>
+        <p>Most command-prompt commands are not case sensitive</p>
+        <p>You can log on another valid drive by just typing in the drive letter followed by a colon and then pressing
+            <button class="console">Enter</button>.<br>
+            <button class="console">A:</button> will log you into the A Drive.<br>
+            When you log on to a drive, all your commands will be executed on that drive - unless you specify otherwise.
+        </p>
+        <p>Switches, or parameters, always begin with a <span class="console">/</span> or <span
+                class="console">-</span>.<br>
+            Switches allow you to modify the default operation
+            of specific commands.<br>
+            If you use the modifier <span class="console">/?</span> in a command, it will show the
+            help command with all the switches available.<br>
+            The brackets [] indicate that the switch is optional.</p>
+        <p><button class="console">/?</button> Display help</p>
+        <p><button class="console">| more</button> List files one page at a time</p>
+        <p><button class="console">></button> Output to a file</p>
+        <p><button class="console">>></button> Append to a file</p>
+        <p><button class="console">Ctrl</button> + <button class="console">C</button> Stop execution</p>
+        <p>Clicking the <button class="console">F7</button> button will list previous commands</p>
+    </div>
+    <div class="main flex-center" id="commands">
+        <!-- Samsung NVMe Firmware -------------------------------------------->
+        <div class="col-6 col-s-6">
+            <h2 class="heading">Samsung NVMe Drivers (Titan Canister)</h2>
+            <div>
+                <p>Firmware needs to be rolled back to <mark>EDB5002Q.bin</mark></p>
+                <!-- Download Firmware -------------------------------------------->
+                <button class="collapsible">Download Samsung SSD NVMe Firmware</button>
+                <div class="content medium">
+                    <p style="font-weight: bold;">Link to download Samsung NVMe Drivers and DC Utility Toolkit:</p>
+                    <ul>
+                        <li>Download the NVMe driver under the “DRIVER” tab:<br>
+                            <a href="https://www.samsung.com/semiconductor/minisite/ssd/download/tools/"
+                                target="_blank">https://www.samsung.com/semiconductor/minisite/ssd/download/tools/</a>
+                        </li>
+                        <li>Download the DC Toolkit for Windows under the “983 DCT” tab:<br>
+                            <a href="https://www.samsung.com/semiconductor/minisite/ssd/download/data-center/"
+                                target="_blank">https://www.samsung.com/semiconductor/minisite/ssd/download/data-center/</a>
+                        </li>
+                    </ul>
+                    <p>In order for the firmware of the Samsung NVMe SSD to be downgraded, the OS must have the
+                        <mark>NVMe
+                            driver</mark> installed before running the <mark>DC Toolkit Utility</mark>.</p>
+                    <p>The Samsung NVMe is only supported by Windows 7, 8, and 10. The driver will only be installed if
+                        the
+                        system has a Samsung NVMe Drive already connected to the system.<br>
+                        <li><mark>Place the DC Toolkit utility on the desktop of the test setup</mark>.</li>
+                    </p>
+                    <p>For this programming guide, an APEX system was used as the test setup. The DC Toolkit Utility is
+                        case
+                        sensitive, so type the commands as seen in this guide.</p>
+                    <p>EDB5002.rom is the image needed to downgrade the Samsung SSD NVMe firmware.<br>
+                        <li><mark>Place this image on the Desktop and copy the file location</mark>.</li>
+                    </p>
+                </div>
+                <!-- Instructions ------------------------------------------------>
+                <button class="collapsible">Instructions</button>
+                <div class="content medium">
+                    <ol type="1">
+                        <li>Open a command prompt in Windows with administrative privileges.</li>
+                        <li>Navigate to the DC Toolkit utility.</li>
+                        <li>Type the command below to list all available drives seen by the utility:<br>
+                            <span class="console">.exe -L</span></li>
+                        <li>Type the command below to program the firmware image:<br>
+                            <span class="console">.exe -d [Disk Location]:c -ND -p [file path] -a 1 -s 2</span>
+                            <ol type="a">
+                                <li>Disk Location will be obtained from the <span class="console">-L</span> command from
+                                    the
+                                    previous step. In the case of APEX, if all 12 drives are installed into the 8BAY and
+                                    SYS_IO, this number will be from 0 to 11.</li>
+                                <li>Paste the file path of the EDB5002.rom image in the [file path] location of the
+                                    command.
+                                </li>
+                                <li>Type <span class="console">yes</span> when prompted by the utility.</li>
+                            </ol>
+                        </li>
+                        <li>Repeat the command noted in step 4 until all detected drives are programmed.</li>
+                        <li>Reboot system when all drives are programmed.</li>
+                    </ol>
+                </div>
+                <!-- Examples --------------------------------------------------->
+                <button class="collapsible">Examples</button>
+                <div class="content medium">
+                    <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -L</span><br>
+                        List all available drives.</p>
+                    <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -d 0:c -ND -p
+                            c:\Users\GMS\Desktop\EDB5002Q.bin -a 1 -s 2</span><br>
+                        Roll back firmware for drive 0.</p>
+                    <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -d 1:c -ND -p
+                            c:\Users\GMS\Desktop\EDB5002Q.bin -a 1 -s 2</span><br>
+                        Roll back firmware for drive 1.</p>
+                    <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -d 2:c -ND -p
+                            c:\Users\GMS\Desktop\EDB5002Q.bin -a 1 -s 2</span><br>
+                        Roll back firmware for drive 2.</p>
+                    <p>Repeat this for all 12 SSDs</p>
+                </div>
+            </div>
+        </div>
+        <!-- iperf3 ---------------------------------------------------------->
+        <div class="col-6 col-s-6">
+            <h2 class="heading">iperf3</h2>
+            <p>Iperf is a command-line tool that allows you to test the bandwidth. You will have to setup the
+                server first, then the client. </p>
+            <p><mark>Both the server and the client can be on the same computer</mark></p>
+            <!-- Server Only ------------------------------------------------->
+            <button class="collapsible">For Server</button>
+            <div class="content medium">
+                <p><span class="console">iperf3 -s</span> Run iPerf in <mark>server</mark> mode. </p>
+            </div>
+            <!-- Client Only ------------------------------------------------->
+            <button class="collapsible">For Client</button>
+            <div class="content medium">
+                <p><span class="console">iperf3 -c host</span> Run iPerf in <mark>client</mark> mode -
+                    connecting to an iPerf <mark>server</mark> running on <span
+                        style="font-weight: bold; font-style: italic;">host</span>.
+                </p>
+                <p><span class="console">-t</span> The time in seconds to transmit for. iPerf normally works
+                    by repeatedly sending an array of <span style="font-weight: bold; font-style: italic;">len</span>
+                    bytes for <span style="font-weight: bold; font-style: italic;">time</span> seconds.<br>
+                    <mark>Default is 10 seconds. Set t to 0 will run iperf3 continuosly with no time
+                        limit</mark>.
+                </p>
+                <p><span class="console">-P</span> The number of simultaneous connections to make to the
+                    server. <mark>Default is 1</mark>.
+                    <p><button class="console">-R</button> Run in reverse mode <mark>(server sends, client
+                            receives)</mark>.
+                    </p>
+            </div>
+            <!-- Server & Client --------------------------------------------->
+            <button class="collapsible">For Server & Client</button>
+            <div class="content medium">
+                <p><button class="console">-p</button> server port to listen on/connect to. By default, iperf3
+                    listens
+                    on port 5201.</p>
+                <p><button class="console">-B</button> Bind to <span
+                        style="font-weight: bold; font-style: italic;">host</span>, one of this machine's
+                    addresses.
+                    <ul>
+                        <li>For the client this sets the outbound interface</li>
+                        <li>For a server this sets the incoming interface</li>
+                    </ul>
+                    This is only useful on multihomed hosts, which have multiple network interfaces.</p>
+                <p><button class="console">-V</button> Give more detailed output.</p>
+            </div>
+            <!-- Examples ---------------------------------------------------->
+            <button class="collapsible">Examples</button>
+            <div class="content medium">
+                <p><button class="console">iperf3 -s -B 200.100.0.250 -p 1000</button><br>
+                    <ul>
+                        <li>Run iperf3 as a server</li>
+                        <li>Bind server to IP address 200.100.0.250</li>
+                        <li>Set port to 1000</li>
+                    </ul>
+                </p>
+                <p><button class="console">iperf3 -c 200.100.0.250 -p 1000 -B 192.168.1.2 -P 7 -t 0</button><br>
+                    <ul>
+                        <li>Run iperf3 as a client</li>
+                        <li>Connect to server at 200.100.0.250</li>
+                        <li>Set port to 1000</li>
+                        <li>Bind client to 192.168.1.2</li>
+                        <li>Set the number of simultaneous connections to make to the server to 7.</li>
+                        <li>set to send continuously, no time limit</li>
+                    </ul>
+                </p>
+                <p><button class="console">iperf3 -c 200.100.0.250 -p 1000 -B 192.168.1.2 -P 7 -t 0
+                        -R</button><br>
+                    Reverse direction - Server sends, Client listens.</p>
+            </div>
+        </div>
+        <!-- Network --------------------------------------------------------->
+        <div class="col-6 col-s-6">
+            <h2 class="heading">Network</h2>
+            <!-- IPCONFIG ---------------------------------------------------->
+            <button class="collapsible">ipconfig</button>
+            <div class="content medium">
+                <p>Displays all current TCP/IP network configuration values and refreshes Dynamic Host
+                    Configuration
+                    Protocol (DHCP) and Domain Name System (DNS) settings.</p>
+                <p>Used without parameters, ipconfig displays Internet Protocol version 4 (IPv4) and IPv6
+                    addresses,
+                    subnet mask, and default gateway for all adapters.</p>
+                <p><button class="console">ipconfig /all</button> Show detailed information</p>
+            </div>
+            <!-- NETSTAT ----------------------------------------------------->
+            <button class="collapsible">netstat</button>
+            <div class="content medium">
+                <p>Displays active TCP connections, ports on which the computer is listening, Ethernet
+                    statistics,
+                    the
+                    IP routing table, IPv4 statistics (for the IP, ICMP, TCP, and UDP protocols), and IPv6
+                    statistics
+                    (for the IPv6, ICMPv6, TCP over IPv6, and UDP over IPv6 protocols).</p>
+                <p>Used without parameters, netstat displays active TCP connections.</p>
+                <p><button class="console">arp -a</button> Displays all connections and listening ports.</p>
+            </div>
+            <!-- TRACERT ----------------------------------------------------->
+            <button class="collapsible">tracert</button>
+            <div class="content medium">
+                <p>The tracert command is used to visually see a network packet being sent and received and the
+                    amount
+                    of hops required for that packet to get to its destination.</p>
+                <p>Determines the path taken to a destination by sending Internet Control Message Protocol
+                    (ICMP)
+                    echo
+                    Request or ICMPv6 messages to the destination with incrementally increasing time to Live
+                    (TTL)
+                    field
+                    values. The path displayed is the list of near/side router interfaces of the routers in the
+                    path
+                    between a source host and a destination. The near/side interface is the interface of the
+                    router
+                    that
+                    is closest to the sending host in the path.</p>
+                <p>Used without parameters, tracert displays help</p>
+                <p><button class="console">tracert jimngo.net</button> Trace the path to the host named
+                    jimngo.net
+                </p>
+            </div>
+            <!-- PING -------------------------------------------------------->
+            <button class="collapsible">ping</button>
+            <div class="content medium">
+                <p>verifies IP-level connectivity to another TCP/IP computer by sending Internet Control Message
+                    Protocol (ICMP) echo Request messages. The receipt of corresponding echo Reply messages are
+                    displayed, along with round-trip times. ping is the primary TCP/IP command used to
+                    troubleshoot
+                    connectivity, reachability, and name resolution.</p>
+                <p>Used without parameters, ping displays help</p>
+                <p><button class="console">/a</button> Specifies that reverse name resolution is performed on
+                    the
+                    destination IP address. If this is successful, ping displays the
+                    corresponding host name.</p>
+
+            </div>
+            <!-- PATHPING -------------------------------------------------------->
+            <button class="collapsible">pathping</button>
+            <div class="content medium">
+                <p>Provides information about network latency and network loss at intermediate hops between a
+                    source
+                    and
+                    destination. pathping sends multiple echo Request messages to each router between a source
+                    and
+                    destination over a period of time and then computes results based on the packets returned
+                    from
+                    each
+                    router.</p>
+                <p>Because pathping displays the degree of packet loss at any given router or link, you can
+                    determine which routers or subnets might be having network problems. pathping performs the
+                    equivalent of the tracert command by identifying which routers are on the path. It then
+                    sends
+                    pings
+                    periodically to all of the routers over a specified time period and computes statistics
+                    based on
+                    the
+                    number returned from each.</p>
+                <p>Used without parameters, pathping displays help</p>
+            </div>
+            <!-- ARP --------------------------------------------------------->
+            <button class="collapsible">arp</button>
+            <div class="content medium">
+                <p>Displays and modifies entries in the <mark>address Resolution Protocol (arp)</mark> cache,
+                    which
+                    contains one or more tables that are used to store <mark>IP addresses and their resolved
+                        Ethernet or
+                        Token Ring physical addresses</mark>.</p>
+                <p>There is a separate table for each Ethernet or Token Ring network adapter installed on your
+                    computer.
+                </p>
+                <p>Used without parameters, arp displays help.</p>
+                <p><button class="console">arp -a</button> Displays current ARP entries by interrogating the
+                    current
+                    protocol data. If inet_addr is specified, the IP and Physical addresses for only the
+                    specified
+                    computer are displayed. If more than one network interface uses ARP, entries for each ARP
+                    table are displayed.</p>
+            </div>
+            <!-- HOSTNAME ---------------------------------------------------->
+            <button class="collapsible">hostname</button>
+            <div class="content medium">
+                <p>Displays the host name portion of the full computer name of the computer</p>
+            </div>
+            <!-- NSLOOKUP ---------------------------------------------------->
+            <button class="collapsible">nslookup</button>
+            <div class="content medium">
+                <p>Displays information that you can use to diagnose Domain Name System (DNS) infrastructure.
+                    Before
+                    using this tool, you should be familiar with how DNS works. The Nslookup command-line tool
+                    is
+                    available only if you have installed the TCP/IP protocol.</p>
+            </div>
+            <!-- NBTSTAT ----------------------------------------------------->
+            <button class="collapsible">nbtstat</button>
+            <div class="content medium">
+                <p>Displays NetBIOS over TCP/IP (NetBT) protocol statistics, NetBIOS name tables for both the
+                    local
+                    computer and remote computers, and the NetBIOS name cache. nbtstat allows a refresh of the
+                    NetBIOS
+                    name cache and the names registered with Windows Internet Name Service (WINS).</p>
+                <p>Used without parameters, nbtstat displays help.</p>
+            </div>
+            <!-- GETMAC ----------------------------------------------------->
+            <button class="collapsible">getmac</button>
+            <div class="content medium">
+                <p>Returns the media access control (MAC) address and list of network protocols associated with
+                    each
+                    address for all network cards in each computer, either locally or across a network.</p>
+                <p>Used without parameters, <span class="console">getmac</span> displays MAC addresses for the
+                    local
+                    system.</p>
+                <p><button class="console">/s</button> Specifies the name or IP address of a remote computer (do
+                    not use backslashes).</p>
+                <p><button class="console">getmac /s srvmain</button> displays MAC addresses for the remote
+                    computer
+                    "srvmain"".</p>
+                <p><button class="console">/v</button> Specifies that the output display verbose information.
+                </p>
+            </div>
+            <!-- ROUTE ------------------------------------------------------->
+            <button class="collapsible">route</button>
+            <div class="content medium">
+                <p>Manipulates network routing tables.</p>
+                <p><button class="console">route PRINT</button> Prints a route</p>
+            </div>
+        </div>
+        <!-- System ---------------------------------------------------------->
+        <div class="col-6 col-s-6">
+            <h2 class="heading">System</h2>
+            <!-- CHKDSK ------------------------------------------------------>
+            <button class="collapsible">chkdsk</button>
+            <div class="content medium">
+                <p><button class="console">chkdsk [volume[[path]filename]]] [/F] [/V] [/R] [/X] [/I] [/C]
+                        [/L[:size]]
+                        [/B] [/scan] [/spotfix]</button>
+                    Checks a disk and displays a status report.</p>
+                <p><button class="console">volume</button>
+                    Specifies the drive letter (followed by a colon),
+                    mount point, or volume name.</p>
+                <p><button class="console">filename</button>
+                    FAT/FAT32 only: Specifies the files to check for
+                    fragmentation.</p>
+                <p><button class="console">/f</button>
+                    Fixes errors on the disk.</p>
+            </div>
+            <!-- SFC --------------------------------------------------------->
+            <button class="collapsible">sfc</button>
+            <div class="content medium">
+                <p><button class="console">sfc /scannow</button>
+                    Scans integrity of all protected system files and repairs files with
+                    problems when possible.</p>
+            </div>
+            <!-- SYSTEMINFO -------------------------------------------------->
+            <button class="collapsible">systeminfo</button>
+            <div class="content medium">
+                <p><button class="console">systeminfo</button>
+                    This tool displays operating system configuration information for
+                    a local or remote machine, including service pack levels.</p>
+            </div>
+        </div>
+        <!-- Directory ------------------------------------------------------->
+        <div class="col-6 col-s-6">
+            <h2 class="heading">Directory</h2>
+            <!-- CD ---------------------------------------------------------->
+            <button class="collapsible">cd</button>
+            <div class="content medium">
+                <p><button class="console">cd [drive:][path]</button>
+                    Displays the name of or changes the current directory.</p>
+                <p><button class="console">cd \</button>
+                    Change to the ROOT directory from any directory or subdirectory</p>
+                <p><button class="console">cd ..</button>
+                    Change to the parent directory of your current director</p>
+            </div>
+            <!-- DIR --------------------------------------------------------->
+            <button class="collapsible">dir</button>
+            <div class="content medium">
+                <p><button class="console">dir [drive:][path][filename]</button>
+                    Specifies drive, directory, and/or files to list.</p>
+                <p><button class="console">/w</button> Uses wide list format.</p>
+                <p><button class="console">/p</button> List one page at a time.</p>
+            </div>
+            <button class="collapsible">md</button>
+            <div class="content medium">
+                <p><button class="console">md [drive:][path]</button>
+                    Make a directory. This command is the same as the mkdir command.</p>
+                <p><button class="console">md</button> is the same as <button class="console">mkdir</button></p>
+            </div>
+            <button class="collapsible">rd</button>
+            <div class="content medium">
+                <p><button class="console">rd [/s] [/q] [drive:]path</button>
+                    Removes (deletes) a directory.</p>
+                <p><button class="console">[/s]</button>
+                    Removes all directories and files in the specified directory
+                    in addition to the directory itself. Used to remove a directory
+                    tree.</p>
+                <p><button class="console">[/q]</button>
+                    Quiet mode, do not ask if ok to remove a directory tree with /S</p>
+            </div>
+        </div>
+        <!-- Filing ---------------------------------------------------------->
+        <div class="col-6 col-s-6">
+            <h2 class="heading">Filing</h2>
+            <!-- COPY --------------------------------------------------------->
+            <button class="collapsible">copy</button>
+            <div class="content medium">
+                <p><button class="console">copy source destination</button>
+                    Copies one or more files to another location.</p>
+                <p><button class="console">source</button>
+                    Specifies the file or files to be copied.</p>
+                <p><button class="console">destination</button>
+                    Specifies the directory and/or filename for the new file(s).</p>
+            </div>
+            <!-- DEL ---------------------------------------------------------->
+            <button class="collapsible">del</button>
+            <div class="content medium">
+                <p><button class="console">del names</button>
+                    Deletes one or more files.</p>
+                <p><button class="console">names</button>
+                    Specifies a list of one or more files or directories.
+                    Wildcards may be used to delete multiple files. If a
+                    directory is specified, all files within the directory
+                    will be deleted.</p>
+            </div>
+            <!-- REN ---------------------------------------------------------->
+            <button class="collapsible">ren</button>
+            <div class="content medium">
+                <p><button class="console">ren [drive:][path]filename1 filename2.</button>
+                    Renames a file or files.</p>
+                <p><button class="console">ren</button> is the same as <button class="console">rename</button>.
+                </p>
+            </div>
+            <!-- TYPE --------------------------------------------------------->
+            <button class="collapsible">type</button>
+            <div class="content medium">
+                <p><button class="console">type [drive:][path]filename</button>
+                    Displays the contents of a text file or files.</p>
+            </div>
+        </div>
+        <!-- Miscellaneous --------------------------------------------------->
+        <div class="col-6 col-s-6">
+            <h2 class="heading">Miscellaneous</h2>
+            <!-- SSH ---------------------------------------------------------->
+            <button class="collapsible">ssh</button>
+            <div class="content medium">
+                <p><button class="console">ssh user@machine</button> Start an SSH session with server <span
+                        style="font-weight: bold; font-style: italic;">machine</span> using username <span
+                        style="font-weight: bold; font-style: italic;">user</span>.</p>
+            </div>
+            <!-- DOSKEY ------------------------------------------------------->
+            <button class="collapsible">doskey</button>
+            <div class="content medium">
+                <p>Edits command lines, recalls Windows commands, and creates macros.</p>
+                <p><button class="console">/history</button> Displays all commands stored in memory.</p>
+            </div>
+        </div>
+        <!-- ipmitool -------------------------------------------------------->
+        <div class="col-6 col-s-6">
+            <h2 class="heading">ipmitool</h2>
+        </div>
+    </div>
+    <script>
+        function collapsible(idName, className, className2) {
+            const array = document.getElementById(idName).getElementsByClassName(className);
+            const contents = document.getElementById(idName).getElementsByClassName(className2);
+            for (let i = 0; i < array.length; i++) {
+                array[i].addEventListener("click", function () {
+                    // Hide all elements with class content
+                    for (let j = 0; j < contents.length; j++) {
+                        contents[j].style.height = '0px';
+                    }
+                    if (this.classList.contains("active")) {
+                        this.classList.remove("active");
+                    } else {
+                        // Remove current active class
+                        for (let k = 0; k < array.length; k++) {
+                            array[k].classList.remove("active");
+                        }
+                        // Add active class to clicked element
+                        this.classList.toggle("active");
+                        // Display content for only active element            
+                        var content = this.nextElementSibling;
+                        content.style.height = content.scrollHeight + "px";
+                        content.scrollTop;
+                    }
+                });
+            }
+        }
+        collapsible('commands', 'collapsible', 'content');
+        // collapsible('commands2', 'collapsible', 'content');
+    </script>
+</body>
