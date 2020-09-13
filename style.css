@@ -46,13 +46,13 @@ html {
 h1 {
     font-size: 150%;
     line-height: normal;
-    font-weight: normal
+    font-weight: bolder
 }
 
 h2 {
     font-size: 130%;
     line-height: normal;
-    font-weight: normal
+    font-weight: bold
 }
 
 h3 {
@@ -308,7 +308,7 @@ h4 {
     padding: 18px;
     background-color: dodgerblue;
     color: white;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     text-align: center;
     font-size: 125%;
     border-radius: 5px;
