@@ -15,111 +15,103 @@
 
 <body>
     <div class="main">
-        <h1>Command Line Notes & Examples</h1>
-        <p>Most command-prompt commands are not case sensitive</p>
-        <p>You can log on another valid drive by just typing in the drive letter followed by a colon and then pressing
-            <button class="console">Enter</button>.<br>
-            <button class="console">A:</button> will log you into the A Drive.<br>
-            When you log on to a drive, all your commands will be executed on that drive - unless you specify otherwise.
-        </p>
-        <p>Switches, or parameters, always begin with a <span class="console">/</span> or <span
-                class="console">-</span>.<br>
-            Switches allow you to modify the default operation
-            of specific commands.<br>
-            If you use the modifier <span class="console">/?</span> in a command, it will show the
-            help command with all the switches available.<br>
-            The brackets [] indicate that the switch is optional.</p>
-        <p><button class="console">/?</button> Display help</p>
-        <p><button class="console">| more</button> List files one page at a time</p>
-        <p><button class="console">></button> Output to a file</p>
-        <p><button class="console">>></button> Append to a file</p>
-        <p><button class="console">Ctrl</button> + <button class="console">C</button> Stop execution</p>
-        <p>Clicking the <button class="console">F7</button> button will list previous commands</p>
+        <h1>Command Line Notes & Examples - Jim Ngo</h1>
+        <ul>
+            <li>Most command-prompt commands are not case sensitive</li>
+            <li>Switches, or parameters, always begin with a <span class="console">/</span> or <span
+                    class="console">-</span>.<br>
+                Switches allow you to modify the default operation of specific commands.<br>
+                The brackets [] indicate that the switch is optional.</li>
+            <li><span class="console">/?</span> Display help</li>
+            <li><span class="console">| more</span> List files one page at a time</li>
+            <li><span class="console">A:</span> will log you into the A Drive.</li>
+            <li><span class="console">></span> Output to a file</li>
+            <li><span class="console">>></span> Append to a file</li>
+            <li><span class="console">Ctrl</span> + <span class="console">C</span> Stop execution</li>
+            <li>Clicking the <span class="console">F7</span> button will list previous commands</li>
+        </ul>
     </div>
     <div class="main flex-center" id="commands">
         <!-- Samsung NVMe Firmware -------------------------------------------->
-        <div class="col-6 col-s-6">
+        <div class="col-4 col-s-6">
             <h2 class="heading">Samsung NVMe Drivers (Titan Canister)</h2>
-            <div>
+            <div class="description">
                 <p>Firmware needs to be rolled back to <mark>EDB5002Q.bin</mark></p>
-                <!-- Download Firmware -------------------------------------------->
-                <button class="collapsible">Download Samsung SSD NVMe Firmware</button>
-                <div class="content medium">
-                    <p style="font-weight: bold;">Link to download Samsung NVMe Drivers and DC Utility Toolkit:</p>
-                    <ul>
-                        <li>Download the NVMe driver under the “DRIVER” tab:<br>
-                            <a href="https://www.samsung.com/semiconductor/minisite/ssd/download/tools/"
-                                target="_blank">https://www.samsung.com/semiconductor/minisite/ssd/download/tools/</a>
-                        </li>
-                        <li>Download the DC Toolkit for Windows under the “983 DCT” tab:<br>
-                            <a href="https://www.samsung.com/semiconductor/minisite/ssd/download/data-center/"
-                                target="_blank">https://www.samsung.com/semiconductor/minisite/ssd/download/data-center/</a>
-                        </li>
-                    </ul>
-                    <p>In order for the firmware of the Samsung NVMe SSD to be downgraded, the OS must have the
-                        <mark>NVMe
-                            driver</mark> installed before running the <mark>DC Toolkit Utility</mark>.</p>
-                    <p>The Samsung NVMe is only supported by Windows 7, 8, and 10. The driver will only be installed if
-                        the
-                        system has a Samsung NVMe Drive already connected to the system.<br>
-                        <li><mark>Place the DC Toolkit utility on the desktop of the test setup</mark>.</li>
-                    </p>
-                    <p>For this programming guide, an APEX system was used as the test setup. The DC Toolkit Utility is
-                        case
-                        sensitive, so type the commands as seen in this guide.</p>
-                    <p>EDB5002.rom is the image needed to downgrade the Samsung SSD NVMe firmware.<br>
-                        <li><mark>Place this image on the Desktop and copy the file location</mark>.</li>
-                    </p>
-                </div>
-                <!-- Instructions ------------------------------------------------>
-                <button class="collapsible">Instructions</button>
-                <div class="content medium">
-                    <ol type="1">
-                        <li>Open a command prompt in Windows with administrative privileges.</li>
-                        <li>Navigate to the DC Toolkit utility.</li>
-                        <li>Type the command below to list all available drives seen by the utility:<br>
-                            <span class="console">.exe -L</span></li>
-                        <li>Type the command below to program the firmware image:<br>
-                            <span class="console">.exe -d [Disk Location]:c -ND -p [file path] -a 1 -s 2</span>
-                            <ol type="a">
-                                <li>Disk Location will be obtained from the <span class="console">-L</span> command from
-                                    the
-                                    previous step. In the case of APEX, if all 12 drives are installed into the 8BAY and
-                                    SYS_IO, this number will be from 0 to 11.</li>
-                                <li>Paste the file path of the EDB5002.rom image in the [file path] location of the
-                                    command.
-                                </li>
-                                <li>Type <span class="console">yes</span> when prompted by the utility.</li>
-                            </ol>
-                        </li>
-                        <li>Repeat the command noted in step 4 until all detected drives are programmed.</li>
-                        <li>Reboot system when all drives are programmed.</li>
-                    </ol>
-                </div>
-                <!-- Examples --------------------------------------------------->
-                <button class="collapsible">Examples</button>
-                <div class="content medium">
-                    <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -L</span><br>
-                        List all available drives.</p>
-                    <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -d 0:c -ND -p
-                            c:\Users\GMS\Desktop\EDB5002Q.bin -a 1 -s 2</span><br>
-                        Roll back firmware for drive 0.</p>
-                    <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -d 1:c -ND -p
-                            c:\Users\GMS\Desktop\EDB5002Q.bin -a 1 -s 2</span><br>
-                        Roll back firmware for drive 1.</p>
-                    <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -d 2:c -ND -p
-                            c:\Users\GMS\Desktop\EDB5002Q.bin -a 1 -s 2</span><br>
-                        Roll back firmware for drive 2.</p>
-                    <p>Repeat this for all 12 SSDs</p>
-                </div>
+            </div>
+            <!-- Download Firmware -------------------------------------------->
+            <button class="collapsible">Download Samsung SSD NVMe Firmware</button>
+            <div class="content medium">
+                <p style="font-weight: bold;">Link to download Samsung NVMe Drivers and DC Utility Toolkit:</p>
+                <ul>
+                    <li>Download the NVMe driver under the “DRIVER” tab:<br>
+                        <a href="https://www.samsung.com/semiconductor/minisite/ssd/download/tools/"
+                            target="_blank">https://www.samsung.com/semiconductor/minisite/ssd/download/tools/</a>
+                    </li>
+                    <li>Download the DC Toolkit for Windows under the “983 DCT” tab:<br>
+                        <a href="https://www.samsung.com/semiconductor/minisite/ssd/download/data-center/"
+                            target="_blank">https://www.samsung.com/semiconductor/minisite/ssd/download/data-center/</a>
+                    </li>
+                </ul>
+                <p>In order for the firmware of the Samsung NVMe SSD to be downgraded, the OS must have the <mark>NVMe
+                        driver</mark> installed before running the <mark>DC Toolkit Utility</mark>.</p>
+                <p>The Samsung NVMe is only supported by Windows 7, 8, and 10. The driver will only be installed if the
+                    system has a Samsung NVMe Drive already connected to the system.<br>
+                    <li><mark>Place the DC Toolkit utility on the desktop of the test setup</mark>.</li>
+                </p>
+                <p>For this programming guide, an APEX system was used as the test setup. The DC Toolkit Utility is case
+                    sensitive, so type the commands as seen in this guide.</p>
+                <p>EDB5002.rom is the image needed to downgrade the Samsung SSD NVMe firmware.<br>
+                    <li><mark>Place this image on the Desktop and copy the file location</mark>.</li>
+                </p>
+            </div>
+            <!-- Instructions ------------------------------------------------>
+            <button class="collapsible">Instructions</button>
+            <div class="content medium">
+                <ol type="1">
+                    <li>Open a command prompt in Windows with administrative privileges.</li>
+                    <li>Navigate to the DC Toolkit utility.</li>
+                    <li>Type the command below to list all available drives seen by the utility:<br>
+                        <span class="console">.exe -L</span></li>
+                    <li>Type the command below to program the firmware image:<br>
+                        <span class="console">.exe -d [Disk Location]:c -ND -p [file path] -a 1 -s 2</span>
+                        <ol type="a">
+                            <li>Disk Location will be obtained from the <span class="console">-L</span> command from the
+                                previous step. In the case of APEX, if all 12 drives are installed into the 8BAY and
+                                SYS_IO, this number will be from 0 to 11.</li>
+                            <li>Paste the file path of the EDB5002.rom image in the [file path] location of the command.
+                            </li>
+                            <li>Type <span class="console">yes</span> when prompted by the utility.</li>
+                        </ol>
+                    </li>
+                    <li>Repeat the command noted in step 4 until all detected drives are programmed.</li>
+                    <li>Reboot system when all drives are programmed.</li>
+                </ol>
+            </div>
+            <!-- Examples --------------------------------------------------->
+            <button class="collapsible">Examples</button>
+            <div class="content medium">
+                <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -L</span><br>
+                    List all available drives.</p>
+                <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -d 0:c -ND -p
+                        c:\Users\GMS\Desktop\EDB5002Q.bin -a 1 -s 2</span><br>
+                    Roll back firmware for drive 0.</p>
+                <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -d 1:c -ND -p
+                        c:\Users\GMS\Desktop\EDB5002Q.bin -a 1 -s 2</span><br>
+                    Roll back firmware for drive 1.</p>
+                <p><span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -d 2:c -ND -p
+                        c:\Users\GMS\Desktop\EDB5002Q.bin -a 1 -s 2</span><br>
+                    Roll back firmware for drive 2.</p>
+                <p>Repeat this for all 12 SSDs</p>
             </div>
         </div>
         <!-- iperf3 ---------------------------------------------------------->
-        <div class="col-6 col-s-6">
+        <div class="col-4 col-s-6">
             <h2 class="heading">iperf3</h2>
-            <p>Iperf is a command-line tool that allows you to test the bandwidth. You will have to setup the
-                server first, then the client. </p>
-            <p><mark>Both the server and the client can be on the same computer</mark></p>
+            <div class="description">
+                <p>Iperf is a command-line tool that allows you to test the bandwidth. You will have to setup the
+                    server first, then the client. </p>
+                <p><mark>Both the server and the client can be on the same computer</mark></p>
+            </div>
             <!-- Server Only ------------------------------------------------->
             <button class="collapsible">For Server</button>
             <div class="content medium">
@@ -148,8 +140,7 @@
             <button class="collapsible">For Server & Client</button>
             <div class="content medium">
                 <p><button class="console">-p</button> server port to listen on/connect to. By default, iperf3
-                    listens
-                    on port 5201.</p>
+                    listens on port 5201.</p>
                 <p><button class="console">-B</button> Bind to <span
                         style="font-weight: bold; font-style: italic;">host</span>, one of this machine's
                     addresses.
@@ -186,7 +177,7 @@
             </div>
         </div>
         <!-- Network --------------------------------------------------------->
-        <div class="col-6 col-s-6">
+        <div class="col-4 col-s-6">
             <h2 class="heading">Network</h2>
             <!-- IPCONFIG ---------------------------------------------------->
             <button class="collapsible">ipconfig</button>
@@ -340,7 +331,7 @@
             </div>
         </div>
         <!-- System ---------------------------------------------------------->
-        <div class="col-6 col-s-6">
+        <div class="col-4 col-s-6">
             <h2 class="heading">System</h2>
             <!-- CHKDSK ------------------------------------------------------>
             <button class="collapsible">chkdsk</button>
@@ -374,7 +365,7 @@
             </div>
         </div>
         <!-- Directory ------------------------------------------------------->
-        <div class="col-6 col-s-6">
+        <div class="col-4 col-s-6">
             <h2 class="heading">Directory</h2>
             <!-- CD ---------------------------------------------------------->
             <button class="collapsible">cd</button>
@@ -413,7 +404,7 @@
             </div>
         </div>
         <!-- Filing ---------------------------------------------------------->
-        <div class="col-6 col-s-6">
+        <div class="col-4 col-s-6">
             <h2 class="heading">Filing</h2>
             <!-- COPY --------------------------------------------------------->
             <button class="collapsible">copy</button>
@@ -452,7 +443,7 @@
             </div>
         </div>
         <!-- Miscellaneous --------------------------------------------------->
-        <div class="col-6 col-s-6">
+        <div class="col-4 col-s-6">
             <h2 class="heading">Miscellaneous</h2>
             <!-- SSH ---------------------------------------------------------->
             <button class="collapsible">ssh</button>
@@ -469,7 +460,7 @@
             </div>
         </div>
         <!-- ipmitool -------------------------------------------------------->
-        <div class="col-6 col-s-6">
+        <div class="col-4 col-s-6">
             <h2 class="heading">ipmitool</h2>
         </div>
     </div>
@@ -501,6 +492,5 @@
             }
         }
         collapsible('commands', 'collapsible', 'content');
-        // collapsible('commands2', 'collapsible', 'content');
     </script>
 </body>
