@@ -34,14 +34,13 @@
     <div class="main flex-center" id="commands">
         <!-- Samsung NVMe Firmware -------------------------------------------->
         <div class="col-4 col-s-6">
-            <h2 class="heading">Samsung NVMe Drivers (Titan Canister)</h2>
+            <h2 class="heading">Samsung SSD NVMe (Titan Canister)</h2>
             <div class="description">
                 <p>Firmware needs to be rolled back to <mark>EDB5002Q.bin</mark></p>
             </div>
             <!-- Download Firmware -------------------------------------------->
             <button class="collapsible">Download Samsung SSD NVMe Firmware</button>
             <div class="content medium">
-                <p style="font-weight: bold;">Link to download Samsung NVMe Drivers and DC Utility Toolkit:</p>
                 <ul>
                     <li>Download the NVMe driver under the “DRIVER” tab:<br>
                         <a href="https://www.samsung.com/semiconductor/minisite/ssd/download/tools/"
@@ -102,6 +101,76 @@
                         c:\Users\GMS\Desktop\EDB5002Q.bin -a 1 -s 2</span><br>
                     Roll back firmware for drive 2.</p>
                 <p>Repeat this for all 12 SSDs</p>
+            </div>
+        </div>
+        <!-- RAID Firmware -------------------------------------------------->
+        <div class="col-4 col-s-6">
+            <h2 class="heading">RAID Controller (Titan Canister)</h2>
+            <div class="description">
+                <p></mark></p>
+            </div>
+            <!-- Download Firmware -------------------------------------------->
+            <button class="collapsible">Download Firmware</button>
+            <div class="content medium">
+                <a href="https://www.broadcom.com/products/storage/raid-controllers/megaraid-9460-16i#downloads"
+                    target="_blank">https://www.broadcom.com/products/storage/raid-controllers/megaraid-9460-16i</a>
+                <ol type="1">
+                    <li>For this programming guide, <a
+                            href='https://docs.broadcom.com/docs/51.10.0-2683_9460-16i_SAS_MR_FW_IMAGE.zip'
+                            target='_blank'>MR7.10 (Firmware Version 51.10.0-2683)</a> will be used. Download this
+                        zip file from the archived section of the link indicated above.</li>
+                    <li>Extract files from the zip folder and place the extracted folder on the desktop of the test
+                        setup being used to flash the new firmware image.</li>
+                    <li>Download StorCLI found under the “Management Software and Tools” tab if the test
+                        setup does not already have this software. Firmware version of MR7.14 being used for this guide.
+                        Extract this zip folder and place the “Windows” folder of the extracted zip folder on the
+                        desktop of the test setup when the download is complete.<br>
+                    </li>
+                </ol>
+            </div>
+            <!-- Flashing the firmware --------------------------------------->
+            <button class="collapsible">Flashing Firmware</button>
+            <div class="content medium">
+                <ol type="1">
+                    <li>Ensure that the RAID controller is installed securely and correctly in the test setup before
+                        applying power to the system. </li>
+                    <li>When Windows has fully initialized on the test setup, open a Command Prompt with administrative
+                        privileges.</li>
+                    <li>Navigate to the extracted “Windows” folder of the StorCLI zip file.</li>
+                    <li>List the controllers detected by the system with the command below:<br>
+                        <span class='console'>storcli64.exe show</span>
+                    </li>
+                    <li>Note down the index of the controller on which the firmware will be updated.</li>
+                    <li>For a more detailed view of the controller that you wish to update, type the following
+                        command:<br>
+                        <span class='console'>storcli64.exe /cx show</span><br>
+                        where “x” denotes the index of the controller specified with the initial <span
+                            class='console'>storcli64.exe show</span> command.
+                    </li>
+                    <li>Flash the new firmware with the command below:<br>
+                        <span class='console'>storcli64.exe /cx download file=file_path</span>
+                        <ol type="a">
+                            <li>Copy the file path of the 9460-16i_nopad.rom in the desired firmware image file and
+                                paste this location in the <span class='console'>file_path</span> portion of the above
+                                command.</li>
+                            <li>If the firmware image is being downgraded to a previous firmware revision, <span
+                                    class='console'>noverchk</span> will need to be included to the original command. An
+                                example of the command is provided below:<br>
+                                <span class='console'>storcli64.exe /cx download file=file_path noverchk</span></li>
+                            <li>Note: Do NOT use the file path for the 5972_7209_02_REV002.rom image since this
+                                image file will update the CPLD of the RAID card.</li>
+                        </ol>
+                    </li>
+                    <li>After being prompted that the image flash was successful, reboot the system.</li>
+                    <li>Once the system has fully reboot, navigate to the extracted StorCLI folder using a command
+                        prompt and run the <span class='console'>storcli64.exe /cx show</span> command again.</li>
+                    <li>Verify that the image flashed was successful by looking at the “FW Version = “ line and matching
+                        it with the firmware image flashed.</li>
+                </ol>
+            </div>
+            <!-- Examples --------------------------------------------------->
+            <button class="collapsible">Examples</button>
+            <div class="content medium">
             </div>
         </div>
         <!-- iperf3 ---------------------------------------------------------->
