@@ -228,17 +228,6 @@ h4 {
     }
 }
 
-.active {
-    background-color: green;
-    color: white;
-}
-
-.active::after {
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    content: "\f146";
-}
-
 .collapsible {
     width: 100%;
     margin: 0px 4px;
@@ -257,17 +246,21 @@ h4 {
 .collapsible:hover,
 .collapsible.active {
     background-color: green;
-    color: black;
+    color: white;
 }
 
-.collapsible::after {
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    content: '\f0fe';
+.collapsible:after {
+    /* Unicode character for "plus" sign (+) */
+    content: '\002B';
     color: white;
     font-weight: bold;
     float: right;
     margin-left: 5px;
+}
+
+.active:after {
+    /* Unicode character for "minus" sign (-) */
+    content: '\2212';
 }
 
 .content {
@@ -319,25 +312,9 @@ h4 {
     outline: none;
 }
 
-/* .heading:hover,
-.heading.active {
-    background-color: green;
-    color: black;
-}
-
-.heading::after {
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    content: '\f0fe';
-    color: white;
-    font-weight: bold;
-    float: right;
-    margin-left: 5px;
-} */
-
 .main {
     width: 100%;
-    max-width: 1320px;
+    max-width: 1024px;
     margin: auto;
     padding: 8px;
 }
