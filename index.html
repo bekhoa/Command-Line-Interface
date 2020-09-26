@@ -13,8 +13,8 @@
     <!-- <link rel="stylesheet" href="all.min.css"> -->
 </head>
 
-<body>
-    <div class="main">
+<body class="main">
+    <div>
         <h1>Command Line Notes & Examples</h1>
         <ul>
             <li>Most command-prompt commands are not case sensitive</li>
@@ -31,7 +31,83 @@
             <li>Clicking the <span class="console">F7</span> button will list previous commands</li>
         </ul>
     </div>
-    <div class="main flex-center" id="commands">
+    <div class="flex-center" id="commands">
+        <!-- RAID Firmware -------------------------------------------------->
+        <div class="col-6 col-s-6">
+            <h2 class="heading">Broadcom RAID Controller</h2>
+            <div class="description">
+                <p>Firmware image file to be installed: <mark>9460-16i_nopad.rom</mark></p>
+            </div>
+            <!-- Download Firmware -------------------------------------------->
+            <button class="collapsible">Download</button>
+            <div class="content medium">
+                <a href="https://www.broadcom.com/products/storage/raid-controllers/megaraid-9460-16i#downloads"
+                    target="_blank">https://www.broadcom.com/products/storage/raid-controllers/megaraid-9460-16i</a>
+                <ol type="1">
+                    <li>For this programming guide, <a
+                            href='https://docs.broadcom.com/docs/51.10.0-2683_9460-16i_SAS_MR_FW_IMAGE.zip'
+                            target='_blank'><mark>MR7.10 (Firmware Version 51.10.0-2683)</mark></a> will be used.
+                        Download this zip file from the archived section of the link indicated above.</li>
+                    <li>Extract files from the zip folder and place the extracted folder on the desktop of the test
+                        setup being used to flash the new firmware image.</li>
+                    <li>Download <mark>StorCLI</mark> found under the “Management Software and Tools” tab if the
+                        test
+                        setup does not already have this software. Firmware version of MR7.14 being used for this
+                        guide.
+                        Extract this zip folder and place the “Windows” folder of the extracted zip folder on the
+                        desktop of the test setup when the download is complete.<br>
+                    </li>
+                </ol>
+            </div>
+            <!-- Flashing the firmware --------------------------------------->
+            <button class="collapsible">Flashing Firmware</button>
+            <div class="content medium">
+                <ol type="1">
+                    <li>Ensure that the RAID controller is installed securely and correctly in the test setup before
+                        applying power to the system. </li>
+                    <li>When Windows has fully initialized on the test setup, open a Command Prompt with
+                        administrative
+                        privileges.</li>
+                    <li>Navigate to the extracted “Windows” folder of the StorCLI zip file.</li>
+                    <li>List the controllers detected by the system with the command below:<br>
+                        <span class='console'>storcli64.exe show</span>
+                    </li>
+                    <li>Note down the index of the controller on which the firmware will be updated.</li>
+                    <li>For a more detailed view of the controller that you wish to update, type the following
+                        command:<br>
+                        <span class='console'>storcli64.exe /cx show</span><br>
+                        where “x” denotes the index of the controller specified with the initial <span
+                            class='console'>storcli64.exe show</span> command.
+                    </li>
+                    <li>Flash the new firmware with the command below:<br>
+                        <span class='console'>storcli64.exe /cx download file=file_path</span>
+                        <ol type="a">
+                            <li>Copy the file path of the 9460-16i_nopad.rom in the desired firmware image file and
+                                paste this location in the <span class='console'>file_path</span> portion of the
+                                above
+                                command.</li>
+                            <li>If the firmware image is being downgraded to a previous firmware revision, <span
+                                    class='console'>noverchk</span> will need to be included to the original
+                                command. An
+                                example of the command is provided below:<br>
+                                <span class='console'>storcli64.exe /cx download file=file_path noverchk</span></li>
+                            <li>Note: Do NOT use the file path for the 5972_7209_02_REV002.rom image since this
+                                image file will update the CPLD of the RAID card.</li>
+                        </ol>
+                    </li>
+                    <li>After being prompted that the image flash was successful, reboot the system.</li>
+                    <li>Once the system has fully reboot, navigate to the extracted StorCLI folder using a command
+                        prompt and run the <span class='console'>storcli64.exe /cx show</span> command again.</li>
+                    <li>Verify that the image flashed was successful by looking at the “FW Version = “ line and
+                        matching
+                        it with the firmware image flashed.</li>
+                </ol>
+            </div>
+            <!-- Examples --------------------------------------------------->
+            <button class="collapsible">Examples</button>
+            <div class="content medium">
+            </div>
+        </div>
         <!-- Samsung NVMe Firmware -------------------------------------------->
         <div class="col-6 col-s-6">
             <h2 class="heading">Samsung SSD NVMe</h2>
@@ -51,13 +127,16 @@
                             target="_blank">https://www.samsung.com/semiconductor/minisite/ssd/download/data-center/</a>
                     </li>
                 </ul>
-                <p>In order for the firmware of the Samsung NVMe SSD to be downgraded, the OS must have the <mark>NVMe
+                <p>In order for the firmware of the Samsung NVMe SSD to be downgraded, the OS must have the
+                    <mark>NVMe
                         driver</mark> installed before running the <mark>DC Toolkit Utility</mark>.</p>
-                <p>The Samsung NVMe is only supported by Windows 7, 8, and 10. The driver will only be installed if the
+                <p>The Samsung NVMe is only supported by Windows 7, 8, and 10. The driver will only be installed if
+                    the
                     system has a Samsung NVMe Drive already connected to the system.<br>
                     <li><mark>Place the DC Toolkit utility on the desktop of the test setup</mark>.</li>
                 </p>
-                <p>For this programming guide, an APEX system was used as the test setup. The DC Toolkit Utility is case
+                <p>For this programming guide, an APEX system was used as the test setup. The DC Toolkit Utility is
+                    case
                     sensitive, so type the commands as seen in this guide.</p>
                 <p>EDB5002.rom is the image needed to downgrade the Samsung SSD NVMe firmware.<br>
                     <li><mark>Place this image on the Desktop and copy the file location</mark>.</li>
@@ -74,10 +153,12 @@
                     <li>Type the command below to program the firmware image:<br>
                         <span class="console">.exe -d [Disk Location]:c -ND -p [file path] -a 1 -s 2</span>
                         <ol type="a">
-                            <li>Disk Location will be obtained from the <span class="console">-L</span> command from the
+                            <li>Disk Location will be obtained from the <span class="console">-L</span> command from
+                                the
                                 previous step. In the case of APEX, if all 12 drives are installed into the 8BAY and
                                 SYS_IO, this number will be from 0 to 11.</li>
-                            <li>Paste the file path of the EDB5002.rom image in the [file path] location of the command.
+                            <li>Paste the file path of the EDB5002.rom image in the [file path] location of the
+                                command.
                             </li>
                             <li>Type <span class="console">yes</span> when prompted by the utility.</li>
                         </ol>
@@ -101,76 +182,6 @@
                         c:\Users\GMS\Desktop\EDB5002Q.bin -a 1 -s 2</span><br>
                     Roll back firmware for drive 2.</p>
                 <p>Repeat this for all 12 SSDs</p>
-            </div>
-        </div>
-        <!-- RAID Firmware -------------------------------------------------->
-        <div class="col-6 col-s-6">
-            <h2 class="heading">Broadcom RAID Controller</h2>
-            <div class="description">
-                <p>Firmware image file to be installed: <mark>9460-16i_nopad.rom</mark></p>
-            </div>
-            <!-- Download Firmware -------------------------------------------->
-            <button class="collapsible">Download</button>
-            <div class="content medium">
-                <a href="https://www.broadcom.com/products/storage/raid-controllers/megaraid-9460-16i#downloads"
-                    target="_blank">https://www.broadcom.com/products/storage/raid-controllers/megaraid-9460-16i</a>
-                <ol type="1">
-                    <li>For this programming guide, <a
-                            href='https://docs.broadcom.com/docs/51.10.0-2683_9460-16i_SAS_MR_FW_IMAGE.zip'
-                            target='_blank'><mark>MR7.10 (Firmware Version 51.10.0-2683)</mark></a> will be used.
-                        Download this zip file from the archived section of the link indicated above.</li>
-                    <li>Extract files from the zip folder and place the extracted folder on the desktop of the test
-                        setup being used to flash the new firmware image.</li>
-                    <li>Download <mark>StorCLI</mark> found under the “Management Software and Tools” tab if the test
-                        setup does not already have this software. Firmware version of MR7.14 being used for this guide.
-                        Extract this zip folder and place the “Windows” folder of the extracted zip folder on the
-                        desktop of the test setup when the download is complete.<br>
-                    </li>
-                </ol>
-            </div>
-            <!-- Flashing the firmware --------------------------------------->
-            <button class="collapsible">Flashing Firmware</button>
-            <div class="content medium">
-                <ol type="1">
-                    <li>Ensure that the RAID controller is installed securely and correctly in the test setup before
-                        applying power to the system. </li>
-                    <li>When Windows has fully initialized on the test setup, open a Command Prompt with administrative
-                        privileges.</li>
-                    <li>Navigate to the extracted “Windows” folder of the StorCLI zip file.</li>
-                    <li>List the controllers detected by the system with the command below:<br>
-                        <span class='console'>storcli64.exe show</span>
-                    </li>
-                    <li>Note down the index of the controller on which the firmware will be updated.</li>
-                    <li>For a more detailed view of the controller that you wish to update, type the following
-                        command:<br>
-                        <span class='console'>storcli64.exe /cx show</span><br>
-                        where “x” denotes the index of the controller specified with the initial <span
-                            class='console'>storcli64.exe show</span> command.
-                    </li>
-                    <li>Flash the new firmware with the command below:<br>
-                        <span class='console'>storcli64.exe /cx download file=file_path</span>
-                        <ol type="a">
-                            <li>Copy the file path of the 9460-16i_nopad.rom in the desired firmware image file and
-                                paste this location in the <span class='console'>file_path</span> portion of the above
-                                command.</li>
-                            <li>If the firmware image is being downgraded to a previous firmware revision, <span
-                                    class='console'>noverchk</span> will need to be included to the original command. An
-                                example of the command is provided below:<br>
-                                <span class='console'>storcli64.exe /cx download file=file_path noverchk</span></li>
-                            <li>Note: Do NOT use the file path for the 5972_7209_02_REV002.rom image since this
-                                image file will update the CPLD of the RAID card.</li>
-                        </ol>
-                    </li>
-                    <li>After being prompted that the image flash was successful, reboot the system.</li>
-                    <li>Once the system has fully reboot, navigate to the extracted StorCLI folder using a command
-                        prompt and run the <span class='console'>storcli64.exe /cx show</span> command again.</li>
-                    <li>Verify that the image flashed was successful by looking at the “FW Version = “ line and matching
-                        it with the firmware image flashed.</li>
-                </ol>
-            </div>
-            <!-- Examples --------------------------------------------------->
-            <button class="collapsible">Examples</button>
-            <div class="content medium">
             </div>
         </div>
         <!-- iperf3 ---------------------------------------------------------->
@@ -259,8 +270,10 @@
             <!-- NETSTAT ----------------------------------------------------->
             <button class="collapsible">netstat</button>
             <div class="content medium">
-                <p>Displays active TCP connections, ports on which the computer is listening, Ethernet statistics, the
-                    IP routing table, IPv4 statistics (for the IP, ICMP, TCP, and UDP protocols), and IPv6 statistics
+                <p>Displays active TCP connections, ports on which the computer is listening, Ethernet statistics,
+                    the
+                    IP routing table, IPv4 statistics (for the IP, ICMP, TCP, and UDP protocols), and IPv6
+                    statistics
                     (for the IPv6, ICMPv6, TCP over IPv6, and UDP over IPv6 protocols).</p>
                 <p>Used without parameters, netstat displays active TCP connections.</p>
                 <p><button class="console">arp -a</button> Displays all connections and listening ports.</p>
@@ -270,13 +283,17 @@
             <div class="content medium">
                 <p>The tracert command is used to visually see a network packet being sent and received and the
                     amount of hops required for that packet to get to its destination.</p>
-                <p>Determines the path taken to a destination by sending Internet Control Message Protocol (ICMP) echo
-                    Request or ICMPv6 messages to the destination with incrementally increasing time to Live (TTL) field
+                <p>Determines the path taken to a destination by sending Internet Control Message Protocol (ICMP)
+                    echo
+                    Request or ICMPv6 messages to the destination with incrementally increasing time to Live (TTL)
+                    field
                     values. The path displayed is the list of near/side router interfaces of the routers in the path
-                    between a source host and a destination. The near/side interface is the interface of the router that
+                    between a source host and a destination. The near/side interface is the interface of the router
+                    that
                     is closest to the sending host in the path.</p>
                 <p>Used without parameters, tracert displays help</p>
-                <p><button class="console">tracert jimngo.net</button> Trace the path to the host named jimngo.net</p>
+                <p><button class="console">tracert jimngo.net</button> Trace the path to the host named jimngo.net
+                </p>
             </div>
             <!-- PING -------------------------------------------------------->
             <button class="collapsible">ping</button>
@@ -293,14 +310,20 @@
             <!-- PATHPING -------------------------------------------------------->
             <button class="collapsible">pathping</button>
             <div class="content medium">
-                <p>Provides information about network latency and network loss at intermediate hops between a source and
+                <p>Provides information about network latency and network loss at intermediate hops between a source
+                    and
                     destination. pathping sends multiple echo Request messages to each router between a source and
-                    destination over a period of time and then computes results based on the packets returned from each
+                    destination over a period of time and then computes results based on the packets returned from
+                    each
                     router.</p>
-                <p>Because pathping displays the degree of packet loss at any given router or link, you can determine
-                    which routers or subnets might be having network problems. pathping performs the equivalent of the
-                    tracert command by identifying which routers are on the path. It then sends pings periodically to
-                    all of the routers over a specified time period and computes statistics based on the number returned
+                <p>Because pathping displays the degree of packet loss at any given router or link, you can
+                    determine
+                    which routers or subnets might be having network problems. pathping performs the equivalent of
+                    the
+                    tracert command by identifying which routers are on the path. It then sends pings periodically
+                    to
+                    all of the routers over a specified time period and computes statistics based on the number
+                    returned
                     from each.</p>
                 <p>Used without parameters, pathping displays help</p>
             </div>
@@ -308,14 +331,17 @@
             <button class="collapsible">arp</button>
             <div class="content medium">
                 <p>Displays and modifies entries in the <mark>address Resolution Protocol (arp)</mark> cache, which
-                    contains one or more tables that are used to store <mark>IP addresses and their resolved Ethernet or
+                    contains one or more tables that are used to store <mark>IP addresses and their resolved
+                        Ethernet or
                         Token Ring physical addresses</mark>.</p>
-                <p>There is a separate table for each Ethernet or Token Ring network adapter installed on your computer.
+                <p>There is a separate table for each Ethernet or Token Ring network adapter installed on your
+                    computer.
                 </p>
                 <p>Used without parameters, arp displays help.</p>
                 <p><button class="console">arp -a</button> Displays current ARP entries by interrogating the current
                     protocol data. If inet_addr is specified, the IP and Physical addresses for only the specified
-                    computer are displayed. If more than one network interface uses ARP, entries for each ARP table are
+                    computer are displayed. If more than one network interface uses ARP, entries for each ARP table
+                    are
                     displayed.</p>
             </div>
             <!-- HOSTNAME ---------------------------------------------------->
@@ -334,7 +360,8 @@
             <button class="collapsible">nbtstat</button>
             <div class="content medium">
                 <p>Displays NetBIOS over TCP/IP (NetBT) protocol statistics, NetBIOS name tables for both the local
-                    computer and remote computers, and the NetBIOS name cache. nbtstat allows a refresh of the NetBIOS
+                    computer and remote computers, and the NetBIOS name cache. nbtstat allows a refresh of the
+                    NetBIOS
                     name cache and the names registered with Windows Internet Name Service (WINS).</p>
                 <p>Used without parameters, nbtstat displays help.</p>
             </div>
@@ -345,7 +372,8 @@
                     address for all network cards in each computer, either locally or across a network.</p>
                 <p>Used without parameters, <span class="console">getmac</span> displays MAC addresses for the local
                     system.</p>
-                <p><button class="console">/s</button> Specifies the name or IP address of a remote computer (do not use
+                <p><button class="console">/s</button> Specifies the name or IP address of a remote computer (do not
+                    use
                     backslashes).</p>
                 <p><button class="console">getmac /s srvmain</button> displays MAC addresses for the remote computer
                     "srvmain"".</p>

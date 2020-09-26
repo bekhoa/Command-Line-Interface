@@ -319,6 +319,20 @@ h4 {
     padding: 8px;
 }
 
+.flex-center {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flex-perfect-center {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
 /* Transition - Sliding Up Down Effect ***************************************/
 .slow {
     transition: all 1s ease-out;
