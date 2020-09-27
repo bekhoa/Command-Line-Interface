@@ -1,0 +1,66 @@
+<head>
+    <title>Titan System Test - Jim Ngo</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="subject" content="">
+    <meta name="language" content="English">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Jim Ngo" />
+    <meta name="copyright" content="2020" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="main">
+    <div>
+        <h1>Titan System Test</h1>
+        <p>(For Educational Purpose Only - Jim Ngo)</p>
+        <h2>Loading Operating System and Drivers</h2>
+        <ul>
+            <li>Install Windows Server 2019</li>
+            <li>Run <span class="console">netplwiz</span> to remove password required when logging in to Windows</li>
+            <li>Switches, or parameters, always begin with a <span class="console">/</span> or <span
+                    class="console">-</span>.<br>
+                Switches allow you to modify the default operation of specific commands.<br>
+                The brackets [] indicate that the switch is optional.</li>
+            <li><span class="console">/?</span> Display help</li>
+            <li><span class="console">| more</span> List files one page at a time</li>
+            <li><span class="console">A:</span> will log you into the A Drive.</li>
+            <li><span class="console">></span> Output to a file</li>
+            <li><span class="console">>></span> Append to a file</li>
+            <li><span class="console">Ctrl</span> + <span class="console">C</span> Stop execution</li>
+            <li>Clicking the <span class="console">F7</span> button will list previous commands</li>
+        </ul>
+    </div>
+
+    <script>
+        function collapsible(idName, className, className2) {
+            const array = document.getElementById(idName).getElementsByClassName(className);
+            const contents = document.getElementById(idName).getElementsByClassName(className2);
+            for (let i = 0; i < array.length; i++) {
+                array[i].addEventListener("click", function () {
+                    // Hide all elements with class content
+                    for (let j = 0; j < contents.length; j++) {
+                        contents[j].style.height = '0px';
+                    }
+                    if (this.classList.contains("active")) {
+                        this.classList.remove("active");
+                    } else {
+                        // Remove current active class
+                        for (let k = 0; k < array.length; k++) {
+                            array[k].classList.remove("active");
+                        }
+                        // Add active class to clicked element
+                        this.classList.toggle("active");
+                        // Display content for only active element            
+                        var content = this.nextElementSibling;
+                        content.style.height = content.scrollHeight + "px";
+                        content.scrollTop;
+                    }
+                });
+            }
+        }
+        collapsible('commands', 'collapsible', 'content');
+    </script>
+</body>
