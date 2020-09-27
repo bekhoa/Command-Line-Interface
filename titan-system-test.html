@@ -16,22 +16,61 @@
     <div>
         <h1>Titan System Test</h1>
         <p>(For Educational Purpose Only - Jim Ngo)</p>
-        <h2>Loading Operating System and Drivers</h2>
-        <ul>
-            <li>Install Windows Server 2019</li>
-            <li>Run <span class="console">netplwiz</span> to remove password required when logging in to Windows</li>
-            <li>Switches, or parameters, always begin with a <span class="console">/</span> or <span
-                    class="console">-</span>.<br>
-                Switches allow you to modify the default operation of specific commands.<br>
-                The brackets [] indicate that the switch is optional.</li>
-            <li><span class="console">/?</span> Display help</li>
-            <li><span class="console">| more</span> List files one page at a time</li>
-            <li><span class="console">A:</span> will log you into the A Drive.</li>
-            <li><span class="console">></span> Output to a file</li>
-            <li><span class="console">>></span> Append to a file</li>
-            <li><span class="console">Ctrl</span> + <span class="console">C</span> Stop execution</li>
-            <li>Clicking the <span class="console">F7</span> button will list previous commands</li>
-        </ul>
+        <h2>Installing Operating System, Drivers, and Testing Softwares</h2>
+        <ol type="I">
+            <li>
+                <h3>Windows Server 2019 Standard (Desktop Experience)</h3>
+            </li>
+            <ol type="1">
+                <li>Power up &#8594; Click <span class="console">Del</span> to enter BIOS setup</li>
+                <ul>
+                    <li>Set BIOS to boot from CDRom where Windows 2019 is connected.</li>
+                    <li>Safe and Exit from Bios.</li>
+                </ul>
+                <li>Follow prompts to install Windows Server 2019 Standard (Desktop Experience).</li>
+                <li>At the <mark>"Where do you want to install Windows?"</mark> window:</li>
+                <ul>
+                    <li>If the drive is empty, there should only be 1 Drive 0 Unallocated Space (232.9 GB)</li>
+                    <li>If there are multiple drives, delete others leaving one Drive 0.</li>
+                    <li>Click Next and allow Windows to install.</li>
+                </ul>
+                <li>Once OS is installed, run <span class="console">netplwiz</span> to remove password requirement when
+                    logging in to Windows</li>
+            </ol>
+            <li>
+                <h3>Install drivers</h3>
+            </li>
+            (All drivers are stored in a department folder under Titan)
+            <ol type="1">
+                <li>Chipset</li>
+                <ul>
+                    <li>Open <mark>Chipset</mark> Folder</li>
+                    <li>Run <span class="console">SetupChipset.exe</span></li>
+                </ul>
+                <li>Graphic</li>
+                <ul>
+                    <li>Open <mark>Graphic</mark> Folder</li>
+                    <li>Open <mark>ASPEED_v110_windows</mark> Folder</li>
+                    <li>Open <mark>WDDM Installer</mark> Folder</li>
+                    <li> Run <span class="console">Win2019.msi</span></li>
+                </ul>
+                <li>Ethernet</li>
+                <ul>
+                    <li>Open <mark>Ethernet</mark> Folder</li>
+                    <li>Open <mark>25_1</mark> Folder</li>
+                    <li>Run <span class="console">Autorun.exe</span></li>
+                </ul>
+                <li>Additional drivers as required per system: RAID, Mellanox, USB Loopback, etc.</li>
+            </ol>
+            <li>
+                <h3>Install Testing Softwares</h3>
+            </li>
+            <ol type="1">
+                <li>LSA</li>
+                <li>CrystalDiskMark</li>
+                <li>Burn In Test</li>
+            </ol>
+        </ol>
     </div>
 
     <script>
