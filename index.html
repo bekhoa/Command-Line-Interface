@@ -35,9 +35,6 @@
         <!-- RAID Firmware -------------------------------------------------->
         <div class="col-6 col-s-6">
             <h2 class="heading">Broadcom RAID Controller</h2>
-            <div class="description">
-                <p>Firmware image file to be installed: <mark>9460-16i_nopad.rom</mark></p>
-            </div>
             <!-- Download Firmware -------------------------------------------->
             <button class="collapsible">Download</button>
             <div class="content medium">
@@ -62,34 +59,24 @@
             <!-- Flashing the firmware --------------------------------------->
             <button class="collapsible">Flashing Firmware</button>
             <div class="content medium">
+                <p>Firmware image file to be installed: <mark>9460-16i_nopad.rom</mark></p>
                 <ol type="1">
                     <li>Ensure that the RAID controller is installed securely and correctly in the test setup before
                         applying power to the system. </li>
                     <li>When Windows has fully initialized on the test setup, open a Command Prompt with
-                        administrative
-                        privileges.</li>
+                        administrative privileges.</li>
                     <li>Navigate to the extracted “Windows” folder of the StorCLI zip file.</li>
-                    <li>List the controllers detected by the system with the command below:<br>
-                        <span class='console'>storcli64.exe show</span>
-                    </li>
+
                     <li>Note down the index of the controller on which the firmware will be updated.</li>
-                    <li>For a more detailed view of the controller that you wish to update, type the following
-                        command:<br>
-                        <span class='console'>storcli64.exe /cx show</span><br>
-                        where “x” denotes the index of the controller specified with the initial <span
-                            class='console'>storcli64.exe show</span> command.
-                    </li>
                     <li>Flash the new firmware with the command below:<br>
                         <span class='console'>storcli64.exe /cx download file=file_path</span>
                         <ol type="a">
                             <li>Copy the file path of the 9460-16i_nopad.rom in the desired firmware image file and
                                 paste this location in the <span class='console'>file_path</span> portion of the
-                                above
-                                command.</li>
+                                above command.</li>
                             <li>If the firmware image is being downgraded to a previous firmware revision, <span
                                     class='console'>noverchk</span> will need to be included to the original
-                                command. An
-                                example of the command is provided below:<br>
+                                command. An example of the command is provided below:<br>
                                 <span class='console'>storcli64.exe /cx download file=file_path noverchk</span></li>
                             <li>Note: Do NOT use the file path for the 5972_7209_02_REV002.rom image since this
                                 image file will update the CPLD of the RAID card.</li>
@@ -99,21 +86,42 @@
                     <li>Once the system has fully reboot, navigate to the extracted StorCLI folder using a command
                         prompt and run the <span class='console'>storcli64.exe /cx show</span> command again.</li>
                     <li>Verify that the image flashed was successful by looking at the “FW Version = “ line and
-                        matching
-                        it with the firmware image flashed.</li>
+                        matching it with the firmware image flashed.</li>
                 </ol>
             </div>
             <!-- Examples --------------------------------------------------->
-            <button class="collapsible">Examples</button>
+            <button class="collapsible">Instructions</button>
             <div class="content medium">
+                <p>Do these first:</p>
+                <ul>
+                    <li>copy <span class='console'>storcli64.exe</span> to <strong>Windows\System32</strong> folder
+                    </li>
+                    <li>copy <span class='console'>9460-16i_nopad.rom</span> to <strong>Windows\System32</strong> folder
+                    </li>
+                </ul>
+                <p>RAID Firmware Version should be: <strong>5.100.00-2404</strong><br>
+                    Run Commands as Administrator:</p>
+                <ol type="1">
+                    <li>List all controllers:<br>
+                        <span class='console'>storcli64 show</span></li>
+                    <li>List detail for a specific controller - where “x” denotes the index of the controller:<br>
+                        <span class='console'>storcli64 /cx show</span> </li>
+                    <li>Flash new firmware:<br>
+                        <span class='console'>storcli64 /c0 download file=9460-16i_nopad.rom</span></li>
+                    <li>Show profile:<br>
+                        <span class='console'>storcli64 /c0 show profile</span></li>
+                    <li>Set new profile<br>
+                        <span class='console'>storcli64.exe /c0 set profile profileid=14</span></li>
+                    <li>Show linkconfig:<br>
+                        <span class='console'>storcli64 /c0 show linkconfig</span></li>
+                    <li>Set new linkconfig:<br>
+                        <span class='console'>storcli64 /c0 set linkconfig conname=[c1,c0] configid=4</span></li>
+                </ol>
             </div>
         </div>
         <!-- Samsung NVMe Firmware -------------------------------------------->
         <div class="col-6 col-s-6">
             <h2 class="heading">Samsung SSD NVMe</h2>
-            <div class="description">
-                <p>Firmware to be installed: <mark>EDB5002Q.bin</mark></p>
-            </div>
             <!-- Download ----------------------------------------------------->
             <button class="collapsible">Download</button>
             <div class="content medium">
@@ -128,23 +136,23 @@
                     </li>
                 </ul>
                 <p>In order for the firmware of the Samsung NVMe SSD to be downgraded, the OS must have the
-                    <mark>NVMe
-                        driver</mark> installed before running the <mark>DC Toolkit Utility</mark>.</p>
+                    <mark>NVMe driver</mark> installed before running the <mark>DC Toolkit Utility</mark>.</p>
                 <p>The Samsung NVMe is only supported by Windows 7, 8, and 10. The driver will only be installed if
-                    the
-                    system has a Samsung NVMe Drive already connected to the system.<br>
+                    the system has a Samsung NVMe Drive already connected to the system.</p>
+                <ul>
                     <li><mark>Place the DC Toolkit utility on the desktop of the test setup</mark>.</li>
-                </p>
-                <p>For this programming guide, an APEX system was used as the test setup. The DC Toolkit Utility is
-                    case
-                    sensitive, so type the commands as seen in this guide.</p>
-                <p>EDB5002.rom is the image needed to downgrade the Samsung SSD NVMe firmware.<br>
+                </ul>
+                <p>For this programming guide, an APEX system was used as the test setup. The DC Toolkit Utility
+                    is case sensitive, so type the commands as seen in this guide.</p>
+                <p>EDB5002.rom is the image needed to downgrade the Samsung SSD NVMe firmware.</p>
+                <ul>
                     <li><mark>Place this image on the Desktop and copy the file location</mark>.</li>
-                </p>
+                </ul>
             </div>
             <!-- Flashing Firmware -------------------------------------------->
             <button class="collapsible">Flashing Firmware</button>
             <div class="content medium">
+                <p>Firmware to be installed: <strong>EDB5002Q.bin</strong></p>
                 <ol type="1">
                     <li>Open a command prompt in Windows with administrative privileges.</li>
                     <li>Navigate to the DC Toolkit utility.</li>
@@ -154,12 +162,10 @@
                         <span class="console">.exe -d [Disk Location]:c -ND -p [file path] -a 1 -s 2</span>
                         <ol type="a">
                             <li>Disk Location will be obtained from the <span class="console">-L</span> command from
-                                the
-                                previous step. In the case of APEX, if all 12 drives are installed into the 8BAY and
+                                the previous step. In the case of APEX, if all 12 drives are installed into the 8BAY and
                                 SYS_IO, this number will be from 0 to 11.</li>
                             <li>Paste the file path of the EDB5002.rom image in the [file path] location of the
-                                command.
-                            </li>
+                                command.</li>
                             <li>Type <span class="console">yes</span> when prompted by the utility.</li>
                         </ol>
                     </li>
@@ -187,11 +193,6 @@
         <!-- iperf3 ---------------------------------------------------------->
         <div class="col-6 col-s-6">
             <h2 class="heading">iperf3</h2>
-            <div class="description">
-                <p>Iperf is a command-line tool that allows you to test the bandwidth. You will have to setup the
-                    server first, then the client. </p>
-                <p><mark>Both the server and the client can be on the same computer</mark></p>
-            </div>
             <!-- Server Only ------------------------------------------------->
             <button class="collapsible">For Server</button>
             <div class="content medium">
@@ -234,6 +235,9 @@
             <!-- Examples ---------------------------------------------------->
             <button class="collapsible">Examples</button>
             <div class="content medium">
+                <p>Iperf is a command-line tool that allows you to test the bandwidth. You will have to setup the
+                    server first, then the client. </p>
+                <p>Both the server and the client can be on the same computer</p>
                 <p><button class="console">iperf3 -s -B 200.100.0.250 -p 1000</button><br>
                     <ul>
                         <li>Run iperf3 as a server</li>
