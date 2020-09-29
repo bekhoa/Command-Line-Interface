@@ -498,6 +498,38 @@
                     Displays the contents of a text file or files.</p>
             </div>
         </div>
+        <!-- EFI Shell ------------------------------------------------------->
+        <div class="col-6 col-s-6">
+            <h2 class="heading">EFI Shell</h2>
+            <!-- map -r ------------------------------------------------------>
+            <button class="collapsible" style="color: yellow;">Shell> map -r</button>
+            <div class="content medium">
+                <p><span class="shell">Shell> map -r</span> Re-map and list all drives.</p>
+            </div>
+            <!-- fs0 --------------------------------------------------------->
+            <button class="collapsible" style="color: yellow;">Shell> fs0:</button>
+            <div class="content medium">
+                <p>The first USB device found shows up in the mapping as fs0 (File system 0); the next
+                    device shows up as fs1, etc.</p>
+            </div>
+            <!--  ------------------------------------------------------->
+            <button class="collapsible" style="color: yellow;">fs0:\> dir</button>
+            <div class="content medium">
+                <p>List directory.</p>
+                <ul>
+                    <li>Folders are listed in blue and EFI executables (.EFI) are listed in green.</li>
+                    <li>Some utilities also have .NSH files - these are scripts. For example, most Intel update
+                        utilities have a startup.nsh file which can be automatically executed on entering the shell.
+                    </li>
+                    <li>Just as in DOS, use the TAB key to help auto-complete filenames. For example, type in "CD " and
+                        then use the tab key to step through the filenames available in the current directory.</li>
+                    <li>Use the CD command as you would in DOS, to change directories. Its important to remember that
+                        you must put a space after the CD command.<br>
+                        <span class="shell">fs0:\ cd \licenses</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <!-- Miscellaneous --------------------------------------------------->
         <div class="col-6 col-s-6">
             <h2 class="heading">Miscellaneous</h2>

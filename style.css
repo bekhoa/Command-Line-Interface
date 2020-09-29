@@ -284,12 +284,27 @@ h4 {
 }
 
 .console {
-    margin: 2px 4px 2px 0px;
+    /* margin: 2px 4px 2px 0px; */
     padding: 2px 8px;
     border-style: none;
     border-radius: 5px;
     background-color: black;
     color: lightgreen;
+    text-align: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.shell {
+    margin: 2px 4px 2px 0px;
+    padding: 2px 8px;
+    border-style: none;
+    border-radius: 5px;
+    background-color: black;
+    color: yellow;
     text-align: left;
     text-decoration: none;
     display: inline-block;
