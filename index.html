@@ -18,17 +18,19 @@
         <p>(For Educational Purpose Only - Jim Ngo)</p>
         <ul>
             <li>Most command-prompt commands are not case sensitive</li>
-            <li>Switches, or parameters, always begin with a <span class="console">/</span> or <span
-                    class="console">-</span>.<br>
+            <li>Switches, or parameters, always begin with a <span class="terminal">/</span> or <span
+                    class="terminal">-</span>.<br>
                 Switches allow you to modify the default operation of specific commands.<br>
-                The brackets [] indicate that the switch is optional.</li>
-            <li><span class="console">/?</span> Display help</li>
-            <li><span class="console">| more</span> List files one page at a time</li>
-            <li><span class="console">A:</span> will log you into the A Drive.</li>
-            <li><span class="console">></span> Output to a file</li>
-            <li><span class="console">>></span> Append to a file</li>
-            <li><span class="console">Ctrl</span> + <span class="console">C</span> Stop execution</li>
-            <li>Clicking the <span class="console">F7</span> button will list previous commands</li>
+                The brackets [] indicate that the terminal is optional.</li>
+            <ul>
+                <li><span class="terminal">/?</span> Display help</li>
+                <li><span class="terminal">| more</span> List files one page at a time</li>
+                <li><span class="terminal">A:</span> will log you into the A Drive.</li>
+                <li><span class="terminal">></span> Output to a file</li>
+                <li><span class="terminal">>></span> Append to a file</li>
+            </ul>
+            <li><span class="terminal">Ctrl</span> + <span class="terminal">C</span> Stop execution</li>
+            <li>Clicking the <span class="terminal">F7</span> button will list previous commands</li>
         </ul>
     </div>
     <div class="flex-center" id="commands">
@@ -47,10 +49,8 @@
                         Download this zip file from the archived section of the link indicated above.</li>
                     <li>Extract files from the zip folder and place the extracted folder on the desktop of the test
                         setup being used to flash the new firmware image.</li>
-                    <li>Download <mark>StorCLI</mark> found under the “Management Software and Tools” tab if the
-                        test
-                        setup does not already have this software. Firmware version of MR7.14 being used for this
-                        guide.
+                    <li>Download <mark>StorCLI</mark> found under the “Management Software and Tools” tab if the test
+                        setup does not already have this software. Firmware version of MR7.14 being used for this guide.
                         Extract this zip folder and place the “Windows” folder of the extracted zip folder on the
                         desktop of the test setup when the download is complete.<br>
                     </li>
@@ -66,18 +66,18 @@
                     <li>When Windows has fully initialized on the test setup, open a Command Prompt with
                         administrative privileges.</li>
                     <li>Navigate to the extracted “Windows” folder of the StorCLI zip file.</li>
-
                     <li>Note down the index of the controller on which the firmware will be updated.</li>
                     <li>Flash the new firmware with the command below:<br>
-                        <span class='console'>storcli64.exe /cx download file=file_path</span>
+                        <span class='console'>storcli64.exe /cx download file=&#60;file_path&#62;</span>
                         <ol type="a">
                             <li>Copy the file path of the 9460-16i_nopad.rom in the desired firmware image file and
-                                paste this location in the <span class='console'>file_path</span> portion of the
-                                above command.</li>
+                                paste this location in the <span class='terminal'>&#60;file_path&#62;</span> portion of
+                                the above command.</li>
                             <li>If the firmware image is being downgraded to a previous firmware revision, <span
-                                    class='console'>noverchk</span> will need to be included to the original
+                                    class='terminal'>noverchk</span> will need to be included to the original
                                 command. An example of the command is provided below:<br>
-                                <span class='console'>storcli64.exe /cx download file=file_path noverchk</span></li>
+                                <span class='console'>storcli64.exe /cx download file=&#60;file_path&#62;
+                                    noverchk</span></li>
                             <li>Note: Do NOT use the file path for the 5972_7209_02_REV002.rom image since this
                                 image file will update the CPLD of the RAID card.</li>
                         </ol>
@@ -85,7 +85,7 @@
                     <li>After being prompted that the image flash was successful, reboot the system.</li>
                     <li>Once the system has fully reboot, navigate to the extracted StorCLI folder using a command
                         prompt and run the <span class='console'>storcli64.exe /cx show</span> command again.</li>
-                    <li>Verify that the image flashed was successful by looking at the “FW Version = “ line and
+                    <li>Verify that the image flashed was successful by looking at the “FW Version = &#8221; line and
                         matching it with the firmware image flashed.</li>
                 </ol>
             </div>
@@ -94,9 +94,10 @@
             <div class="content medium">
                 <p>Do these first:</p>
                 <ul>
-                    <li>copy <span class='console'>storcli64.exe</span> to <strong>Windows\System32</strong> folder
+                    <li>copy <span class='terminal'>storcli64.exe</span> to <strong>Windows\System32</strong> folder
                     </li>
-                    <li>copy <span class='console'>9460-16i_nopad.rom</span> to <strong>Windows\System32</strong> folder
+                    <li>copy <span class='terminal'>9460-16i_nopad.rom</span> to <strong>Windows\System32</strong>
+                        folder
                     </li>
                 </ul>
                 <p>RAID Firmware Version should be: <strong>5.100.00-2404</strong><br>
@@ -157,16 +158,17 @@
                     <li>Open a command prompt in Windows with administrative privileges.</li>
                     <li>Navigate to the DC Toolkit utility.</li>
                     <li>Type the command below to list all available drives seen by the utility:<br>
-                        <span class="console">.exe -L</span></li>
+                        <span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -L</span></li>
                     <li>Type the command below to program the firmware image:<br>
-                        <span class="console">.exe -d [Disk Location]:c -ND -p [file path] -a 1 -s 2</span>
+                        <span class="console">Samsung_SSD_DC_Toolkit_for_Windows.exe -d [Disk Location]:c -ND -p [file
+                            path] -a 1 -s 2</span>
                         <ol type="a">
-                            <li>Disk Location will be obtained from the <span class="console">-L</span> command from
+                            <li>Disk Location will be obtained from the <span class="terminal">-L</span> option from
                                 the previous step. In the case of APEX, if all 12 drives are installed into the 8BAY and
                                 SYS_IO, this number will be from 0 to 11.</li>
                             <li>Paste the file path of the EDB5002.rom image in the [file path] location of the
                                 command.</li>
-                            <li>Type <span class="console">yes</span> when prompted by the utility.</li>
+                            <li>Type <span class="terminal">yes</span> when prompted by the utility.</li>
                         </ol>
                     </li>
                     <li>Repeat the command noted in step 4 until all detected drives are programmed.</li>
@@ -205,24 +207,24 @@
                     connecting to an iPerf <mark>server</mark> running on <span
                         style="font-weight: bold; font-style: italic;">host</span>.
                 </p>
-                <p><span class="console">-t</span> The time in seconds to transmit for. iPerf normally works
+                <p><span class="terminal">-t</span> The time in seconds to transmit for. iPerf normally works
                     by repeatedly sending an array of <span style="font-weight: bold; font-style: italic;">len</span>
                     bytes for <span style="font-weight: bold; font-style: italic;">time</span> seconds.<br>
                     <mark>Default is 10 seconds. Set t to 0 will run iperf3 continuosly with no time
                         limit</mark>.
                 </p>
-                <p><span class="console">-P</span> The number of simultaneous connections to make to the
+                <p><span class="terminal">-P</span> The number of simultaneous connections to make to the
                     server. <mark>Default is 1</mark>.
-                    <p><button class="console">-R</button> Run in reverse mode <mark>(server sends, client
+                    <p><button class="terminal">-R</button> Run in reverse mode <mark>(server sends, client
                             receives)</mark>.
                     </p>
             </div>
             <!-- Server & Client --------------------------------------------->
             <button class="collapsible">For Server & Client</button>
             <div class="content medium">
-                <p><button class="console">-p</button> server port to listen on/connect to. By default, iperf3
+                <p><button class="terminal">-p</button> server port to listen on/connect to. By default, iperf3
                     listens on port 5201.</p>
-                <p><button class="console">-B</button> Bind to <span
+                <p><button class="terminal">-B</button> Bind to <span
                         style="font-weight: bold; font-style: italic;">host</span>, one of this machine's
                     addresses.
                     <ul>
@@ -230,7 +232,7 @@
                         <li>For a server this sets the incoming interface</li>
                     </ul>
                     This is only useful on multihomed hosts, which have multiple network interfaces.</p>
-                <p><button class="console">-V</button> Give more detailed output.</p>
+                <p><button class="terminal">-V</button> Give more detailed output.</p>
             </div>
             <!-- Examples ---------------------------------------------------->
             <button class="collapsible">Examples</button>
@@ -275,13 +277,13 @@
                         [/L[:size]]
                         [/B] [/scan] [/spotfix]</button>
                     Checks a disk and displays a status report.</p>
-                <p><button class="console">volume</button>
+                <p><button class="terminal">volume</button>
                     Specifies the drive letter (followed by a colon),
                     mount point, or volume name.</p>
-                <p><button class="console">filename</button>
+                <p><button class="terminal">filename</button>
                     FAT/FAT32 only: Specifies the files to check for
                     fragmentation.</p>
-                <p><button class="console">/f</button>
+                <p><button class="terminal">/f</button>
                     Fixes errors on the disk.</p>
             </div>
             <!-- SFC --------------------------------------------------------->
@@ -347,7 +349,7 @@
                     displayed, along with round-trip times. ping is the primary TCP/IP command used to troubleshoot
                     connectivity, reachability, and name resolution.</p>
                 <p>Used without parameters, ping displays help</p>
-                <p><button class="console">/a</button> Specifies that reverse name resolution is performed on the
+                <p><button class="terminal">/a</button> Specifies that reverse name resolution is performed on the
                     destination IP address. If this is successful, ping displays the corresponding host name.</p>
 
             </div>
@@ -355,38 +357,29 @@
             <button class="collapsible">pathping</button>
             <div class="content medium">
                 <p>Provides information about network latency and network loss at intermediate hops between a source
-                    and
-                    destination. pathping sends multiple echo Request messages to each router between a source and
+                    and destination. pathping sends multiple echo Request messages to each router between a source and
                     destination over a period of time and then computes results based on the packets returned from
-                    each
-                    router.</p>
-                <p>Because pathping displays the degree of packet loss at any given router or link, you can
-                    determine
-                    which routers or subnets might be having network problems. pathping performs the equivalent of
-                    the
+                    each router.</p>
+                <p>Because pathping displays the degree of packet loss at any given router or link, you can determine
+                    which routers or subnets might be having network problems. pathping performs the equivalent of the
                     tracert command by identifying which routers are on the path. It then sends pings periodically
-                    to
-                    all of the routers over a specified time period and computes statistics based on the number
-                    returned
-                    from each.</p>
+                    to all of the routers over a specified time period and computes statistics based on the number
+                    returned from each.</p>
                 <p>Used without parameters, pathping displays help</p>
             </div>
             <!-- ARP --------------------------------------------------------->
             <button class="collapsible">arp</button>
             <div class="content medium">
                 <p>Displays and modifies entries in the <mark>address Resolution Protocol (arp)</mark> cache, which
-                    contains one or more tables that are used to store <mark>IP addresses and their resolved
-                        Ethernet or
+                    contains one or more tables that are used to store <mark>IP addresses and their resolved Ethernet or
                         Token Ring physical addresses</mark>.</p>
                 <p>There is a separate table for each Ethernet or Token Ring network adapter installed on your
-                    computer.
-                </p>
+                    computer.</p>
                 <p>Used without parameters, arp displays help.</p>
-                <p><button class="console">arp -a</button> Displays current ARP entries by interrogating the current
+                <p><span class="console">arp -a</span> Displays current ARP entries by interrogating the current
                     protocol data. If inet_addr is specified, the IP and Physical addresses for only the specified
                     computer are displayed. If more than one network interface uses ARP, entries for each ARP table
-                    are
-                    displayed.</p>
+                    are displayed.</p>
             </div>
             <!-- HOSTNAME ---------------------------------------------------->
             <button class="collapsible">hostname</button>
@@ -405,8 +398,7 @@
             <div class="content medium">
                 <p>Displays NetBIOS over TCP/IP (NetBT) protocol statistics, NetBIOS name tables for both the local
                     computer and remote computers, and the NetBIOS name cache. nbtstat allows a refresh of the
-                    NetBIOS
-                    name cache and the names registered with Windows Internet Name Service (WINS).</p>
+                    NetBIOS name cache and the names registered with Windows Internet Name Service (WINS).</p>
                 <p>Used without parameters, nbtstat displays help.</p>
             </div>
             <!-- GETMAC ----------------------------------------------------->
@@ -416,12 +408,11 @@
                     address for all network cards in each computer, either locally or across a network.</p>
                 <p>Used without parameters, <span class="console">getmac</span> displays MAC addresses for the local
                     system.</p>
-                <p><button class="console">/s</button> Specifies the name or IP address of a remote computer (do not
-                    use
-                    backslashes).</p>
-                <p><button class="console">getmac /s srvmain</button> displays MAC addresses for the remote computer
+                <p><span class="terminal">/s</span> Specifies the name or IP address of a remote computer (do not
+                    use backslashes).</p>
+                <p><span class="console">getmac /s srvmain</span> displays MAC addresses for the remote computer
                     "srvmain"".</p>
-                <p><button class="console">/v</button> Specifies that the output display verbose information.</p>
+                <p><span class="terminal">/v</span> Specifies that the output display verbose information.</p>
             </div>
             <!-- ROUTE ------------------------------------------------------->
             <button class="collapsible">route</button>
@@ -446,8 +437,8 @@
             <div class="content medium">
                 <p><span class="console">dir [drive:][path][filename]</span> Specifies drive, directory, and/or files to
                     list.</p>
-                <p><span class="console">/w</span> Uses wide list format.</p>
-                <p><span class="console">/p</span> List one page at a time.</p>
+                <p><span class="terminal">/w</span> Uses wide list format.</p>
+                <p><span class="terminal">/p</span> List one page at a time.</p>
             </div>
             <button class="collapsible">md</button>
             <div class="content medium">
@@ -458,38 +449,35 @@
             <button class="collapsible">rd</button>
             <div class="content medium">
                 <p><span class="console">rd [/s] [/q] [drive:]path</span> Removes (deletes) a directory.</p>
-                <p><span class="console">[/s]</span> Removes all directories and files in the specified directory in
+                <p><span class="terminal">/s</span> Removes all directories and files in the specified directory in
                     addition to the directory itself. Used to remove a directory tree.</p>
-                <p><span class="console">[/q]</span> Quiet mode, do not ask if ok to remove a directory tree with /S</p>
+                <p><span class="terminal">/q</span> Quiet mode, do not ask if ok to remove a directory tree with <span
+                        class="terminal">/S</span></p>
             </div>
             <!-- COPY --------------------------------------------------------->
             <button class="collapsible">copy</button>
             <div class="content medium">
                 <p><button class="console">copy source destination</button>
                     Copies one or more files to another location.</p>
-                <p><button class="console">source</button>
+                <p><button class="terminal">source</button>
                     Specifies the file or files to be copied.</p>
-                <p><button class="console">destination</button>
+                <p><button class="terminal">destination</button>
                     Specifies the directory and/or filename for the new file(s).</p>
             </div>
             <!-- DEL ---------------------------------------------------------->
             <button class="collapsible">del</button>
             <div class="content medium">
-                <p><button class="console">del names</button>
+                <p><span class="console">del names</span>
                     Deletes one or more files.</p>
-                <p><button class="console">names</button>
-                    Specifies a list of one or more files or directories.
-                    Wildcards may be used to delete multiple files. If a
-                    directory is specified, all files within the directory
+                <p><span class="terminal">names</span> Specifies a list of one or more files or directories. Wildcards
+                    may be used to delete multiple files. If a directory is specified, all files within the directory
                     will be deleted.</p>
             </div>
             <!-- REN ---------------------------------------------------------->
             <button class="collapsible">ren</button>
             <div class="content medium">
-                <p><button class="console">ren [drive:][path]filename1 filename2.</button>
-                    Renames a file or files.</p>
-                <p><button class="console">ren</button> is the same as <button class="console">rename</button>.
-                </p>
+                <p><span class="console">ren [drive:][path]filename1 filename2.</span> Renames a file or files.</p>
+                <p><span class="terminal">ren</span> is the same as <span class="terminal">rename</span>.</p>
             </div>
             <!-- TYPE --------------------------------------------------------->
             <button class="collapsible">type</button>
