@@ -539,6 +539,59 @@
         <div class="col-6 col-s-6">
             <h2 class="heading">ipmitool</h2>
         </div>
+        <!-- GitHub -------------------------------------------------------->
+        <div class="col-6 col-s-6">
+            <h2 class="heading">GitHub</h2>
+            <!-- Directory --------------------------------------------------->
+            <button class="collapsible">dir -la</button>
+            <div class="content medium">
+                <p><button class="console">dir -la</button> List content of the directory with details.</p>
+            </div>
+            <!-- Git Status --------------------------------------------------->
+            <button class="collapsible">git status</button>
+            <div class="content medium">
+                <p><button class="console">git status</button> get status of the repository.</p>
+            </div>
+            <!-- Git add --------------------------------------------------->
+            <button class="collapsible">git add .</button>
+            <div class="content medium">
+                <p><button class="console">git add .</button> add all files in the working tree to the staging tree.</p>
+                <p><button class="console">git add &lt;file_name&gt;</button> add &lt;file_name&gt; to staging tree.</p>
+            </div>
+            <!-- Git commit --------------------------------------------------->
+            <button class="collapsible">git commit</button>
+            <div class="content medium">
+                <p><span class="console">git commit -m ""</span> Commit files to the repository with comment "".</p>
+                <p><span class="console">git commit -a</span> Commit all files to the repository.</p>
+                <p><span class="console">git commit -am ""</span> Commit all files to the repository with comment "".
+                </p>
+            </div>
+            <!-- Git log --------------------------------------------------->
+            <button class="collapsible">git log</button>
+            <div class="content medium">
+                <p><span class="console">git log</span> view complete log file</p>
+                <p><span class="console">git log -n1</span> view most recent event in log file</p>
+            </div>
+            <!-- Git diff --------------------------------------------------->
+            <button class="collapsible">git diff</button>
+            <div class="content medium">
+                <p><span class="console">git diff</span> view changes between files</p>
+                <p><span class="console">git diff --color-words</span> view changed words in color</p>
+
+            </div>
+            <!-- Git show --------------------------------------------------->
+            <button class="collapsible">git show</button>
+            <div class="content medium">
+                <p><span class="console">git show</span> show changes with a commit(SHA ID)</p>
+                <p><span class="console">git show --color-words</span> </p>
+
+            </div>
+            <!-- Quit --------------------------------------------------->
+            <button class="collapsible">q</button>
+            <div class="content medium">
+                <p><button class="console">q</button> quit.</p>
+            </div>
+        </div>
     </div>
     <script>
         function collapsible(idName, className, className2) {
